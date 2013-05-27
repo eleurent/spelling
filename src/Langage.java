@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.*;
 
 
 public class Langage {
@@ -75,6 +76,7 @@ public class Langage {
 	
 	public String corriger(String mot) {
 		String correction;
+		mot = mot.toLowerCase();
 		/*TODO changer hierarchie par ponderation*/
 		if (modele.containsKey(mot))
 			return mot;
@@ -85,6 +87,19 @@ public class Langage {
 			return correction;
 		}
 		else return mot;		
+	}
+	
+	public String corrigerPhrase(String phrase) {
+		Pattern pattern = Pattern.compile("[\\p{L}]+");
+		Matcher m = pattern.matcher(phrase);
+	    StringBuffer sb = new StringBuffer();  
+		while (m.find())  
+	    {  
+	      m.appendReplacement(sb, "");  
+	      sb.append(corriger(m.group()));  	      
+	    }  
+	    m.appendTail(sb);  
+	    return sb.toString(); 
 	}
 	
 	public static String lireFichier(String chemin) {
@@ -118,22 +133,27 @@ public class Langage {
 	}
 	
 	public static Langage francais = new Langage("abcdefghijklmnopqrstuvwxyzàáâèéêîïôçû", 
-									  new String[]{"corpus/fr/miserables1.txt", 
-												   "corpus/fr/miserables2.txt", 
-												   "corpus/fr/miserables3.txt", 
-												   "corpus/fr/miserables4.txt",
-												   "corpus/fr/miserables5.txt"});
+			  new String[]{"corpus/fr/miserables1.txt", 
+						   "corpus/fr/miserables2.txt", 
+						   "corpus/fr/miserables3.txt", 
+						   "corpus/fr/miserables4.txt",
+						   "corpus/fr/miserables5.txt"});
 	
 	public static Langage anglais = new Langage("abcdefghijklmnopqrstuvwxyz", 
-			  new String[]{"corpus/en/hamlet.txt", 
-						   "corpus/en/henriVI.txt", 
-						   "corpus/en/macbeth.txt", 
+			  new String[]{"corpus/en/dictionary.txt",
+						   "corpus/en/henriVI.txt",
+						   "corpus/en/hamlet.txt",
+						   "corpus/en/macbeth.txt",
 						   "corpus/en/alice.txt",
-						   "corpus/en/sherlock.txt"});
+						   "corpus/en/sherlock.txt",
+						   "corpus/en/greatexpectations.txt",
+						   "corpus/en/mobydick.txt",
+						   "corpus/en/secretadversary.txt",
+						   "corpus/en/montecristo.txt",
+						   "corpus/en/big.txt"});
 
 	
 	public static void main(String[] args) {
-				
-		System.out.println(anglais.probabilitePhrase("people"));
+			//System.out.println(anglais.corrigerPhrase("The quixk briwn hox jumps ovar the lazy dogt !"));			
 	}
 }
