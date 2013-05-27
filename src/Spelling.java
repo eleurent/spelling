@@ -66,15 +66,16 @@ public class Spelling {
 	}
 	
 	public static String corriger(String mot) {
-		
+		String correction;
 		if (modele.containsKey(mot))
 			return mot;
-		
-		Set<String> candidats = new HashSet<String>();
-		candidats.add(mot);
-		candidats.addAll(connus(modifications1(mot)));
-		candidats.addAll(modifications2Connues(mot));
-		return modele.getMaxKey(candidats);
+		else if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
+			return correction;
+		}
+		else if ((correction = modele.getMaxKey(modifications2Connues(mot))) != null) {
+			return correction;
+		}
+		else return mot;		
 	}
 	
 	public static String lireFichier(String chemin) {
@@ -109,7 +110,7 @@ public class Spelling {
 		apprendre(mots("bonjour, comment allez vous ? Bon, vous etes bien bien aimables, vous"));
 		
 	
-		System.out.println(corriger("oiseav"));
+		System.out.println(corriger("coucoz"));
 	}
 	
 	public static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
