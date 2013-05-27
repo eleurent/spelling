@@ -96,7 +96,7 @@ public class Langage {
 		}
 		else return mot;
 		*/		
-		double probabiliteTypo = 15.;
+		double probabiliteTypo = 30.;
 		String[] candidats = new String[3];
 		double[] probabilites = new double[3];
 		
@@ -104,7 +104,7 @@ public class Langage {
 		candidats[1] = modele.getMaxKey(connus(modifications1(mot)));
 		candidats[2] = modele.getMaxKey(modifications2Connues(mot));
 		if (modele.containsKey(candidats[0]))
-			probabilites[0] = modele.get(candidats[0])/1.;
+			probabilites[0] = modele.get(candidats[0])/.1;
 		if (modele.containsKey(candidats[1]))
 			probabilites[1] = modele.get(candidats[1])/probabiliteTypo;
 		if (modele.containsKey(candidats[2]))
@@ -201,13 +201,13 @@ public class Langage {
 	public static void main(String[] args) {
 		//String phrase = anglais.corrigerPhrase("The quixk briwn hox jumps ovar the lazy dogt !";			
 		//String phrase = francais.corrigerPhrase("Les saiglots logs des violo de l'autyomne bessent mon ceur d'une langeur monottone";
-		//String phrase = "La mer est une lerme qui pele le longy dzs côtes";
-		String phrase = "les sanglots lonts fes violons de l'automne blessent mon coeur d'une langueu monotone tout suffocant et bleme quand sonne l'heure je lme suouviens des hours anciens et je pleure";
+		String phrase = "La mer est une lerme qui perle le longy dzs côtes";
+		//String phrase = "les sanglots lonts fes violons de l'automne blessent mon coeur d'une langueu monotone tout suffocant et bleme quand sonne l'heure je lme suouviens des hours anciens et je pleure";
 		//String phrase = "oh what's the crime and what's the punushment the answer seems to vary from place to place and from time to tuime whats legal yesterday becomes suddendly illegal tomorow because some society says its so";
 		Langage l = predireLangage(phrase, new Langage[]{anglais, francais});
 		System.out.println("Cette phrase est en : " + l.nom );
 		System.out.println("Correction orthographique : " + l.corrigerPhrase(phrase));
-		System.out.println(anglais.modele.get("time"));
-		System.out.println(anglais.modele.get("the"));
+		System.out.println(anglais.modele.get("long"));
+		System.out.println(anglais.modele.get("and"));
 	}
 }
