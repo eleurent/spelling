@@ -77,10 +77,35 @@ public class Spelling {
 		return modele.getMaxKey(candidats);
 	}
 	
-	
+	public static String lireFichier(String chemin) {
+		String everything = "";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(chemin));
+			StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append("\n");
+	            line = br.readLine();
+	        }
+	        everything = sb.toString();
+	        br.close();
+		} catch (FileNotFoundException e) { 
+			e.printStackTrace();
+		} catch (IOException e) { 
+			e.printStackTrace();
+		}
+	    return everything;	    		
+	}
 	
 	
 	public static void main(String[] args) {
+		apprendre(mots(lireFichier("corpus/miserables1.txt")));
+		apprendre(mots(lireFichier("corpus/miserables2.txt")));
+		apprendre(mots(lireFichier("corpus/miserables3.txt")));
+		apprendre(mots(lireFichier("corpus/miserables4.txt")));
+		apprendre(mots(lireFichier("corpus/miserables5.txt")));
 		apprendre(mots("bonjour, comment allez vous ? Bon, vous etes bien bien aimables, vous"));
 		
 	
