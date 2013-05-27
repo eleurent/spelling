@@ -10,20 +10,28 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class Spelling {
+public class Langage {
 
-	public static Dictionnaire modele = new Dictionnaire(1);
+	public Dictionnaire modele = new Dictionnaire(1);
+	public String alphabet;
+	public double probabiliteLangage = 0.5;
+	
+	public Langage(String alphabet, String[] corpus) {
+		this.alphabet = alphabet;
+		for (String oeuvre:corpus)
+			apprendre(mots(lireFichier(oeuvre)));
+	}
 	
 	public static String[] mots(String texte) {
 		return texte.split("[^\\p{L}]+");
 	}
 	
-	public static void apprendre(String [] features){		
+	public void apprendre(String [] features){		
 	    for (String f : features)
 	        modele.put(f.toLowerCase(), modele.get(f)+1);
 	}
 	
-	public static Set<String> connus(Set<String> mots) {
+	public Set<String> connus(Set<String> mots) {
 		Set<String> connus = new HashSet<String>();
 		for (String mot : mots)
 			if (modele.containsKey(mot))
@@ -31,7 +39,7 @@ public class Spelling {
 		return connus;
 	}
 	
-	public static Set<String> modifications1(String mot){		
+	public Set<String> modifications1(String mot){		
 		Set<String> modifications = new HashSet<String>();	
 	    String[][] splits =  new String[mot.length() + 1][2];
 	    for (int i=0; i<mot.length()+1; i++){
@@ -47,16 +55,16 @@ public class Spelling {
 	    		modifications.add(splits[i][0] + splits[i][1].charAt(1) + splits[i][1].charAt(0) + splits[i][1].substring(2));
 	    	// Mutations
 	    	if (!splits[i][1].isEmpty())
-	    		for (int j=0; j<alphabet.length; j++)
-	    			modifications.add(splits[i][0] + alphabet[j] + splits[i][1].substring(1));
+	    		for (int j=0; j<alphabet.length(); j++)
+	    			modifications.add(splits[i][0] + alphabet.charAt(j) + splits[i][1].substring(1));
 	    	// Insertions
-	    	for (int j=0; j<alphabet.length; j++)
-    			modifications.add(splits[i][0] + alphabet[j] + splits[i][1]);	    	
+	    	for (int j=0; j<alphabet.length(); j++)
+    			modifications.add(splits[i][0] + alphabet.charAt(j) + splits[i][1]);	    	
 	    }
 	   return modifications;
 	}
 	
-	public static Set<String> modifications2Connues(String mot) {
+	public Set<String> modifications2Connues(String mot) {
 		Set<String> modifications = new HashSet<String>();
 		for (String edit1:modifications1(mot))
 			for (String edit2:modifications1(edit1))
@@ -65,12 +73,12 @@ public class Spelling {
 		return modifications;
 	}
 	
-	public static String corriger(String mot) {
+	public String corriger(String mot) {
 		String correction;
-		//if (modele.containsKey(mot))
-		//	return mot;
-		//else
-		if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
+		/*TODO changer hierarchie par ponderation*/
+		if (modele.containsKey(mot))
+			return mot;
+		else if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
 			return correction;
 		}
 		else if ((correction = modele.getMaxKey(modifications2Connues(mot))) != null) {
@@ -101,16 +109,31 @@ public class Spelling {
 	    return everything;	    		
 	}
 	
-	
-	public static void main(String[] args) {
-		apprendre(mots(lireFichier("corpus/miserables1.txt")));
-		apprendre(mots(lireFichier("corpus/miserables2.txt")));
-		apprendre(mots(lireFichier("corpus/miserables3.txt")));
-		apprendre(mots(lireFichier("corpus/miserables4.txt")));
-		apprendre(mots(lireFichier("corpus/miserables5.txt")));		
-		System.out.println(corriger("hotel"));
+	public int probabilitePhrase(String phrase) {
+		int produit = 1;
+		String[] mots = mots(phrase);
+		for (String mot:mots)
+			produit *= modele.get(mot);
+		return produit;
 	}
 	
-	public static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'à', 'á', 'â', 'è', 'é', 'ê', 'î', 'ï', 'ô', 'ç', 'û'};
+	public static Langage francais = new Langage("abcdefghijklmnopqrstuvwxyzàáâèéêîïôçû", 
+									  new String[]{"corpus/fr/miserables1.txt", 
+												   "corpus/fr/miserables2.txt", 
+												   "corpus/fr/miserables3.txt", 
+												   "corpus/fr/miserables4.txt",
+												   "corpus/fr/miserables5.txt"});
+	
+	public static Langage anglais = new Langage("abcdefghijklmnopqrstuvwxyz", 
+			  new String[]{"corpus/en/hamlet.txt", 
+						   "corpus/en/henriVI.txt", 
+						   "corpus/en/macbeth.txt", 
+						   "corpus/en/alice.txt",
+						   "corpus/en/sherlock.txt"});
 
+	
+	public static void main(String[] args) {
+				
+		System.out.println(anglais.probabilitePhrase("people"));
+	}
 }
