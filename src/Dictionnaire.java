@@ -11,5 +11,15 @@ public class Dictionnaire extends HashMap<String,Integer> {
     Integer v = super.get(k);
     return ((v == null) && !this.containsKey(k)) ? this.defaultValue : v;
   }
-
+  
+  public String getMaxKey(Set<String> ensemble) {
+	  String maxString = null;
+	  Integer maxInteger = defaultValue-1;
+	  for (String s:ensemble)
+		  if (maxInteger.compareTo(get(s)) < 0) {
+			  maxString = s;
+			  maxInteger = get(s);
+		  }
+	  return maxString;
+  }
 }
