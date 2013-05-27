@@ -15,7 +15,7 @@ public class Spelling {
 	public static Dictionnaire modele = new Dictionnaire(1);
 	
 	public static String[] mots(String texte) {
-		return texte.split("[^a-zA-Z']+");
+		return texte.split("[^\\p{L}]+");
 	}
 	
 	public static void apprendre(String [] features){		
@@ -67,9 +67,10 @@ public class Spelling {
 	
 	public static String corriger(String mot) {
 		String correction;
-		if (modele.containsKey(mot))
-			return mot;
-		else if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
+		//if (modele.containsKey(mot))
+		//	return mot;
+		//else
+		if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
 			return correction;
 		}
 		else if ((correction = modele.getMaxKey(modifications2Connues(mot))) != null) {
@@ -106,13 +107,10 @@ public class Spelling {
 		apprendre(mots(lireFichier("corpus/miserables2.txt")));
 		apprendre(mots(lireFichier("corpus/miserables3.txt")));
 		apprendre(mots(lireFichier("corpus/miserables4.txt")));
-		apprendre(mots(lireFichier("corpus/miserables5.txt")));
-		apprendre(mots("bonjour, comment allez vous ? Bon, vous etes bien bien aimables, vous"));
-		
-	
-		System.out.println(corriger("coucoz"));
+		apprendre(mots(lireFichier("corpus/miserables5.txt")));		
+		System.out.println(corriger("hotel"));
 	}
 	
-	public static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	public static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'à', 'á', 'â', 'è', 'é', 'ê', 'î', 'ï', 'ô', 'ç', 'û'};
 
 }
