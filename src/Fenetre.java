@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +16,8 @@ public class Fenetre extends JFrame implements KeyListener {
 	JLabel nomLangagePredit;
 	JTextField output;
 	Langage langagePredit;
+	Updater updater;
+	JComboBox<String> choixCorrection;
 	
 	public Fenetre() {
 		panneauPhrases = new JPanel();
@@ -22,15 +25,18 @@ public class Fenetre extends JFrame implements KeyListener {
 		input = new JTextField("Life is a tale told by an idiot, full of sound and fury, signifying nothing");
 		input.addKeyListener(this);
 		output = new JTextField();
+		output.setEditable(false);
 		nomLangagePredit = new JLabel("???");
 		panneauPhrases.add(input, BorderLayout.NORTH);
 		panneauPhrases.add(nomLangagePredit, BorderLayout.EAST);
 		panneauPhrases.add(output, BorderLayout.CENTER);
 		add(panneauPhrases);
 		corrigerPhrase();
-		setSize(new Dimension(800,600));
+		updater = new Updater(this);
+		updater.start();
+		setSize(new Dimension(600,100));
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 	}
 	
 	public void corrigerPhrase() {
@@ -51,12 +57,35 @@ public class Fenetre extends JFrame implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		corrigerPhrase();		
+		updater.MAJRequise = true;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	class Updater extends Thread {
+		Fenetre fenetre;
+		boolean MAJRequise;
+		public Updater(Fenetre fenetre) {
+			this.fenetre = fenetre;
+			MAJRequise = true;
+		}
+		@Override
+		public void run() {
+			while(true) {
+				if (MAJRequise) {
+					fenetre.corrigerPhrase();
+					MAJRequise = false;
+				}
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

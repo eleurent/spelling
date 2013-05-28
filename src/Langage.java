@@ -96,7 +96,7 @@ public class Langage {
 		}
 		else return mot;
 		*/		
-		double probabiliteTypo = 30.;
+		double probabiliteTypo = 15.;
 		String[] candidats = new String[3];
 		double[] probabilites = new double[3];
 		
@@ -104,11 +104,11 @@ public class Langage {
 		candidats[1] = modele.getMaxKey(connus(modifications1(mot)));
 		candidats[2] = modele.getMaxKey(modifications2Connues(mot));
 		if (modele.containsKey(candidats[0]))
-			probabilites[0] = modele.get(candidats[0])/.1;
+			probabilites[0] = modele.get(candidats[0])*probabiliteTypo;
 		if (modele.containsKey(candidats[1]))
 			probabilites[1] = modele.get(candidats[1])/probabiliteTypo;
 		if (modele.containsKey(candidats[2]))
-			probabilites[2] = modele.get(candidats[2])/(probabiliteTypo*probabiliteTypo);
+			probabilites[2] = modele.get(candidats[2])/Math.pow(probabiliteTypo,3);
 		
 		int max = 0;
 		for (int i=1; i<3; i++)
@@ -116,7 +116,6 @@ public class Langage {
 				max = i;
 		
 		return candidats[max];
-		
 	}
 	
 	public String corrigerPhrase(String phrase) {
@@ -126,7 +125,7 @@ public class Langage {
 		while (m.find())  
 	    {  
 	      m.appendReplacement(sb, "");  
-	      sb.append(corriger(m.group()));  	      
+	      sb.append(corriger(m.group()));
 	    }  
 	    m.appendTail(sb);  
 	    return sb.toString(); 
