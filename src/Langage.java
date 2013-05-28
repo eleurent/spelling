@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -79,50 +80,31 @@ public class Langage {
 		return modifications;
 	}	
 	
-	public String corriger(String mot) {
-		
+	public List<Suggestion> suggestions(String mot) {
+		double probabiliteTypo = 20.;
 		mot = mot.toLowerCase();
-		/*TODO changer hierarchie par ponderation*/
-		
-		/*
-		String correction;
+		MinHeap heap = new MinHeap();
 		if (modele.containsKey(mot))
-			return mot;
-		else if ((correction = modele.getMaxKey(connus(modifications1(mot)))) != null) {
-			return correction;
-		}
-		else if ((correction = modele.getMaxKey(modifications2Connues(mot))) != null) {
-			return correction;
-		}
-		else return mot;
-		*/		
-		double probabiliteTypo = 15.;
-		String[] candidats = new String[3];
-		double[] probabilites = new double[3];
-		
-		candidats[0] = mot;
-		candidats[1] = modele.getMaxKey(connus(modifications1(mot)));
-		candidats[2] = modele.getMaxKey(modifications2Connues(mot));
-		if (modele.containsKey(candidats[0]))
-			probabilites[0] = modele.get(candidats[0])*probabiliteTypo;
-		if (modele.containsKey(candidats[1]))
-			probabilites[1] = modele.get(candidats[1])/probabiliteTypo;
-		if (modele.containsKey(candidats[2]))
-			probabilites[2] = modele.get(candidats[2])/Math.pow(probabiliteTypo,3);
-		
-		int max = 0;
-		for (int i=1; i<3; i++)
-			if (probabilites[i] > probabilites[max])
-				max = i;
-		
-		return candidats[max];
+			heap.add(new Suggestion(mot, modele.get(mot)/1.));		
+		for (String edit1:connus(modifications1(mot))) {
+			heap.add(new Suggestion(edit1, modele.get(edit1)/probabiliteTypo));
+		}		
+		for (String edit2:modifications2Connues(mot)) {
+			heap.add(new Suggestion(edit2, modele.get(edit2)/Math.pow(probabiliteTypo,3)));
+		}		
+		Collections.sort(heap.h, Collections.reverseOrder());		
+		return heap.h;
+	}
+	
+	public String corriger(String mot) {
+		return suggestions(mot).get(0).getMot();
 	}
 	
 	public String corrigerPhrase(String phrase) {
 		Pattern pattern = Pattern.compile("[\\p{L}]+");
 		Matcher m = pattern.matcher(phrase);
 	    StringBuffer sb = new StringBuffer();  
-		while (m.find())  
+		while (m.find())
 	    {  
 	      m.appendReplacement(sb, "");  
 	      sb.append(corriger(m.group()));
@@ -203,10 +185,13 @@ public class Langage {
 		String phrase = "La mer est une lerme qui perle le longy dzs côtes";
 		//String phrase = "les sanglots lonts fes violons de l'automne blessent mon coeur d'une langueu monotone tout suffocant et bleme quand sonne l'heure je lme suouviens des hours anciens et je pleure";
 		//String phrase = "oh what's the crime and what's the punushment the answer seems to vary from place to place and from time to tuime whats legal yesterday becomes suddendly illegal tomorow because some society says its so";
-		Langage l = predireLangage(phrase, new Langage[]{anglais, francais});
+		/*Langage l = predireLangage(phrase, new Langage[]{anglais, francais});
 		System.out.println("Cette phrase est en : " + l.nom );
-		System.out.println("Correction orthographique : " + l.corrigerPhrase(phrase));
-		System.out.println(anglais.modele.get("long"));
-		System.out.println(anglais.modele.get("and"));
+		System.out.println("Correction orthographique : " + l.corrigerPhrase(phrase));*/
+		for (Suggestion suggestion:francais.suggestions("mer")) {
+			System.out.println(suggestion.getMot() + " : " + suggestion.getProbabilite());
+		}
+		System.out.println(francais.modele.get("tions"));
+		System.out.println(francais.modele.get("étions"));
 	}
 }
