@@ -1,0 +1,148 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{envmath}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{ulem}
+\usepackage{moreverb}
+\usepackage{framed}
+\usepackage{listings}
+\usepackage{mathenv}
+\usepackage{color}
+\usepackage{eurosym}
+\usepackage{float}
+
+\title{Correction orthographique par apprentissage Bayésien}
+\author{Edouard \textsc{Leurent} \\ Bastien \textsc{Debras}}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{language=Java, numbers=left, frame = single, keywordstyle = \color{blue}, commentstyle=\color{dkgreen} , numberstyle=\tiny\color{gray}, rulecolor=\color{black}, stringstyle=\color{mauve}, breaklines=true,   title=\lstname,}
+
+
+
+\begin{document}
+
+
+\maketitle
+\vspace{\stretch{1}}
+\begin{center}
+\includegraphics[width=0.2\textwidth]{logo_mines}\\ 
+\vspace{1cm}
+\Large{Cours d'apprentissage artificiel}
+\end{center}
+\vspace{\stretch{1}}
+\tableofcontents
+\vspace{5cm}
+
+\newpage
+
+\section{Introduction}
+\subsection{Démarche}
+Comment réagir face à une faute d'orthographe ? Une première idée pourrait être de regarder dans un \textbf{dictionnaire}. Si l'utilisateur tape un mot qui ne fait pas partie du dictionnaire, on le remplace simplement par le mot du dictionnaire le plus proche (en un sens à préciser). 
+
+Cependant, on se rend vite compte que cette définition du mot "le plus proche" est ambigüe : que faire si un grand nombre de mots sont tous également candidats à être le mot le plus proche ?
+
+Dans cette situation, notre démarche pour lever l'ambiguïté a été de choisir mot le plus \textbf{probable}, c'est à dire le plus fréquent, celui qui apparait le plus dans l'usage. Pour apprendre ces fréquences, il faut donc disposer non pas d'un simple dictionnaire, mais plutôt d'un \textbf{corpus} de textes.
+
+\section{Formalisation}
+
+Nous allons ici préciser nos problèmes, et expliquer notre choix d'algorithmes pour les traiter
+
+\subsection{Les problèmes}
+Nous allons voir que le problème de correction orthographique peut se ramener à un problème de machine learning.
+\begin{itemize}
+\item On considère un mot tapé par l'utilisateur comme une \textbf{observation} du mot réel qu'il a voulu écrire. Les mots d'une langue sont alors interprétées comme des \textbf{classes}. Corriger une faute d'orthographe revient donc à trouver à quelle classe appartient une observation donnée. Nous avons un premier \textbf{problème de classification}, très fortement multiclasse (par exemple, la langue française contient environ 100 000 mots).
+\item Pour rester général, nous avons décider de ne pas considérer uniquement le français mais de traiter le cas d'un \textbf{langage quelconque}. Une fois plusieurs langages appris, corriger une phrase donnée nécessite de savoir dans quel langage il faut raisonner. On doit donc être capable d'identifier dans quelle langue est écrite une phrase donnée, ce qui constitue notre deuxième \textbf{problème de classification}.
+\end{itemize}
+\subsection{Méthode Bayésienne}
+On a choisit de considérer les mots les plus probables, et on a donc adopté une approche probabiliste. Une méthode adéquate est donc d'utiliser un classifieur naïf de Bayes.\\
+
+Il est formalisé de la manière suivante :\\
+
+Étant donné l'ensemble $C$ des corrections possibles  d'un mot donné, on s'intéresse à la probabilité qu'une correction particulière soit la bonne.\\
+
+\begin{array}{l l}
+$On note$ &m $ le mot tapé par l'utilisateur$\\
+	&c $ une correction possible de ce mot$ \\
+	&P(c|m) $ la probabilité que le mot lu $m$ soit une observation du mot correct $c
+\end{array}\\
+
+On a alors, d'après la \textbf{formule de Bayes}
+
+\begin{equation}
+P(c|m) = \frac{P(m|c) \bullet P(c)}{P(m)}
+\end{equation}
+
+On essaie de maximiser cette quantité. Le dénominateur $P(m)$ n'est donc qu'un facteur normalisateur qui est constant sur l'ensemble $C$ des corrections, et on peut donc choisir la convention $P(m) = 1$\\
+
+On cherche donc 
+
+\begin{equation}
+\max\limits_{c \in C} P(m|c) \bullet P(c)
+\end{equation}
+
+On constate alors que notre fonction à maximiser est constituée de deux termes\\
+
+\begin{itemize}
+\item $P(m|c)$ la probabilité d'avoir fait la faute $m$ en voulant taper le mot $c$. C'est le \textbf{modèle d'erreur}.
+\item $P(c)$ la probabilité que l'utilisateur ait voulu taper le mot $c$. C'est le \textbf{modèle de langage}.
+\end{itemize}
+
+Cette séparation en deux termes est très intuitive. Comment corriger la faute de frappe \textit{histre} par exemple ? On peut proposer les deux corrections \textit{bistre} et \textit{histoire} par exemple. Laquelle est la meilleure ?\\
+
+\begin{itemize}
+\item D'un coté la mot \textit{bistre} est plus proche de \textit{histre} que la mot \textit{histoire}, car une seule modification est nécessaire contre deux pour \textit{histoire}. Il est plus probable que l'utilisateur ait faite une seule faute plutôt que deux fautes dans un même mot.
+\item D'un autre coté, le mot \textit{histoire} est bien plus courant que le mot \textit{bistre}, et il est donc plus probable que l'utilisateur ait voulu écrire ce mot.
+\end{itemize}
+
+Il faut donc bien considérer ces deux critères du modèle de langage et du modèle d'erreur pour pouvoir lever l'ambiguïté et choisir la meilleure correction.
+
+\subsection{Le modèle de langage}
+
+
+
+\subsection{Le modèle d'erreur}
+
+On doit mettre en place un modèle permettant de calculer $P(m|c)$, la probabilité qu'en voulant écrire $c$ l'utilisateur fasse une ou plusieurs fautes et aboutisse au mot $m$.
+
+Nous avons choisit un modèle simple, basé sur la notion d'\textbf{opération élémentaire}.
+
+Une opération élémentaire sur un mot est définie comme étant au choix : \\
+
+\begin{itemize}
+\item La suppression d'une lettre du mot
+\item Le remplacement d'une lettre du mot
+\item L'insertion du lettre dans le mot
+\item La transposition de deux lettres du mot
+\end{itemize}
+
+On interprète alors une faute de frappe comme une opération élémentaire, à laquelle on attribue une certaine probabilité d'erreur $P_e$. Cette probabilité est un paramètre de l'algorithme, choisi ici à $1/20^{\text{ème}}$.\\
+
+On calcule ensuite la distance d'édition $d$ entre deux mots, c'est à dire le nombre minimal d'opérations élémentaires pour passer d'un mot à l'autre.
+
+On pose finalement le modèle d'erreur suivant : 
+
+\begin{equation}
+P(m|c) = {Pe}^{d(m,c)}
+\end{equation}
+
+\section{Implémentation}
+\subsection{Modèle de langage}
+\subsubsection{La structure de dictionnaire}
+\subsubsection{Phase d'apprentissage}
+\subsection{Modèle d'erreur}
+\subsubsection{Génération des corrections}
+\subsubsection{Sélection des meilleurs corrections}
+\subsection{L'interface IHM}
+
+\section{Conclusion}
+
+\end{document}

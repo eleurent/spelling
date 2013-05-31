@@ -14,14 +14,34 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.*;
 
-
+/**
+ * Modèle de langage pour la prédiction de correction
+ * @author user
+ *
+ */
 public class Langage {
 
-	public Dictionnaire modele = new Dictionnaire(1);
-	public String alphabet;
+	/**
+	 * Le nom du langage
+	 */
 	public String nom;
-	public double probabiliteLangage = 0.5;
 	
+	/**
+	 * La liste des caractères qui composent l'alphabet du langage
+	 */
+	public String alphabet;
+	
+	/**
+	 * Le dictionnaire de fréquence des mots
+	 */
+	public Dictionnaire modele = new Dictionnaire(1);
+	
+	/**
+	 * Crée un nouveau langage par choix d'un alphabet et apprentissage d'un corpus
+	 * @param nom
+	 * @param alphabet
+	 * @param corpus
+	 */
 	public Langage(String nom, String alphabet, String[] corpus) {
 		this.nom = nom;
 		this.alphabet = alphabet;
@@ -29,15 +49,29 @@ public class Langage {
 			apprendre(mots(lireFichier(oeuvre)));
 	}
 	
+	/**
+	 * Découpe un texte en mots
+	 * @param texte une chaine de caractère
+	 * @return les mots du texte
+	 */
 	public static String[] mots(String texte) {
 		return texte.split("[^\\p{L}]+");
 	}
 	
-	public void apprendre(String [] features){		
+	/**
+	 * Apprentissage des fréquences d'un ensemble mots dans le modèle de langage
+	 * @param features les mots à apprendre
+	 */
+	public void apprendre(String [] features){
 	    for (String f : features)
 	        modele.put(f.toLowerCase(), modele.get(f.toLowerCase())+1);
 	}
 	
+	/**
+	 * Renvoie les mots connus d'un ensemble
+	 * @param mots un ensemble de mots
+	 * @return le sous-ensemble des mots connus
+	 */
 	public Set<String> connus(Set<String> mots) {
 		Set<String> connus = new HashSet<String>();
 		for (String mot : mots)
@@ -46,6 +80,11 @@ public class Langage {
 		return connus;
 	}
 	
+	/**
+	 * Génère l'ensemble des mots à distance 1 d'un mot donné
+	 * @param mot
+	 * @return
+	 */
 	public Set<String> modifications1(String mot){		
 		Set<String> modifications = new HashSet<String>();	
 	    String[][] splits =  new String[mot.length() + 1][2];
@@ -71,6 +110,11 @@ public class Langage {
 	   return modifications;
 	}
 	
+	/**
+	 * Génère l'ensemble des mots à distance 2 d'un mot donné 
+	 * @param mot
+	 * @return
+	 */
 	public Set<String> modifications2Connues(String mot) {
 		Set<String> modifications = new HashSet<String>();
 		for (String edit1:modifications1(mot))
@@ -79,7 +123,11 @@ public class Langage {
 					modifications.add(edit2);
 		return modifications;
 	}	
-	
+	/**
+	 * Détermine tous les mots probables à partir d'un mot mal orthographié
+	 * @param mot
+	 * @return la liste des suggestions
+	 */
 	public List<Suggestion> suggestions(String mot) {
 		double probabiliteTypo = 20.;
 		mot = mot.toLowerCase();
@@ -97,11 +145,19 @@ public class Langage {
 			heap.add(new Suggestion(mot, 0.));
 		return heap.h;
 	}
-	
+	/**
+	 * Renvoie la correction la plus probable
+	 * @param mot
+	 * @return la meilleure correction
+	 */
 	public String corriger(String mot) {
 		return suggestions(mot).get(0).getMot();
 	}
-	
+	/**
+	 * Corrige toute la phrase
+	 * @param phrase
+	 * @return la phrase corrigée mot par mot
+	 */
 	public String corrigerPhrase(String phrase) {
 		Pattern pattern = Pattern.compile("[\\p{L}]+");
 		Matcher m = pattern.matcher(phrase);
@@ -114,7 +170,11 @@ public class Langage {
 	    m.appendTail(sb);  
 	    return sb.toString(); 
 	}
-	
+	/**
+	 * Méthode pour lire le corpus de texte
+	 * @param chemin
+	 * @return le texte en String
+	 */
 	public static String lireFichier(String chemin) {
 		String everything = "";
 		try {
@@ -136,7 +196,11 @@ public class Langage {
 		}
 	    return everything;	    		
 	}
-	
+	/**
+	 * Calcule la probabilité qu'une phrase soit dans la langue actuelle
+	 * @param phrase
+	 * @return la probabilité que la phrase soit dans la langue actuelle
+	 */
 	public double probabilitePhrase(String phrase) {
 		double produit = 1;
 		String[] mots = mots(phrase);
@@ -144,7 +208,12 @@ public class Langage {
 			produit *= modele.get(mot);
 		return produit;
 	}
-	
+	/**
+	 * Détermine le langage le plus probable
+	 * @param phrase
+	 * @param langages
+	 * @return le langage le plus probable
+	 */
 	public static Langage predireLangage(String phrase, Langage[] langages) {
 		Langage langageMax = null;
 		double probaMax = 0;
@@ -156,7 +225,9 @@ public class Langage {
 		}
 		return langageMax;
 	}
-	
+	/**
+	 * Intégration du corpus français
+	 */
 	public static Langage francais = new Langage("Français", "abcdefghijklmnopqrstuvwxyzàáâèéêîïôçû", 
 			  new String[]{"corpus/fr/dictionnaire.txt",
 						   "corpus/fr/miserables1.txt", 
@@ -169,7 +240,9 @@ public class Langage {
 						   "corpus/fr/largent.txt",
 						   "corpus/fr/swann.txt",
 						   "corpus/fr/rougeetnoir.txt"});
-	
+	/**
+	 * Intégration du corpus anglais
+	 */
 	public static Langage anglais = new Langage("Anglais", "abcdefghijklmnopqrstuvwxyz", 
 			  new String[]{"corpus/en/dictionary.txt",
 						   "corpus/en/henriVI.txt",
@@ -181,7 +254,10 @@ public class Langage {
 						   "corpus/en/mobydick.txt",
 						   "corpus/en/secretadversary.txt"});
 
-	
+	/**
+	 * Test
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//String phrase = anglais.corrigerPhrase("The quixk briwn hox jumps ovar the lazy dogt !";			
 		//String phrase = francais.corrigerPhrase("Les saiglots logs des violo de l'autyomne bessent mon ceur d'une langeur monottone";

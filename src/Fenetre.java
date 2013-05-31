@@ -17,18 +17,60 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
-
+/**
+ * Fenêtre d'affichage
+ * @author user
+ *
+ */
 public class Fenetre extends JFrame implements KeyListener, MouseListener{
+	/**
+	 * Panel d'affichage des phrases tapées et corrigées
+	 */
 	JPanel panneauPhrases;
+	
+	/**
+	 * Panel des suggestions et de la langue
+	 */
 	JPanel panneauOptions;
+	
+	/**
+	 * TextField de la phrase à corriger
+	 */
 	JTextField input;
+	
+	/**
+	 * Affiche la langue la plus probable
+	 */
 	JLabel nomLangagePredit;
+	
+	/**
+	 * Affiche la phrase corrigée
+	 */
 	JTextField output;
+	
+	/**
+	 * Le langage le plus probable
+	 */
 	Langage langagePredit;
+	
+	/**
+	 * Update l'affichage des phrases et langues
+	 */
 	Updater updater;
+	
+	/**
+	 * Strings contenus dans les suggestions
+	 */
 	Vector<String> choixModele;
+	
+	/**
+	 * Affichage des strings
+	 */
 	JList<String> choixCorrection;
 	
+	/**
+	 * Crée la fenêtre d'affichage
+	 */
 	public Fenetre() {
 		panneauPhrases = new JPanel();
 		panneauOptions = new JPanel();
@@ -56,14 +98,18 @@ public class Fenetre extends JFrame implements KeyListener, MouseListener{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 	}
-	
+	/**
+	 * Corrige la phrase tapée et l'affiche
+	 */
 	public void corrigerPhrase() {
 		langagePredit = Langage.predireLangage(input.getText(), new Langage[]{Langage.anglais, Langage.francais});
 		nomLangagePredit.setText(langagePredit.nom);
 		output.setText(langagePredit.corrigerPhrase(input.getText()));
 		afficherSuggestions();
 	}
-	
+	/**
+	 * Affiche les suggestions
+	 */
 	public void afficherSuggestions() {
 		int indice = input.getCaretPosition();
 		String[] avant = input.getText().substring(0,indice).split("[^\\p{L}]+");		
@@ -76,10 +122,18 @@ public class Fenetre extends JFrame implements KeyListener, MouseListener{
 		choixCorrection.setListData(choixModele);
 	}
 	
+	/**
+	 * Main principal
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Fenetre fenetre = new Fenetre();
 	}
-	
+	/**
+	 * Met à jour la phrase corrigée et le langage détecté à intervalle régulier
+	 * @author user
+	 *
+	 */
 	class Updater extends Thread {
 		Fenetre fenetre;
 		boolean MAJRequise;

@@ -1,21 +1,45 @@
 import java.util.*;
 
+/**
+ * Tas minimal de suggestions maximales
+ * @author user
+ *
+ */
 public class MinHeap {
+	
+	/**
+	 * Liste des suggestions dans le tas
+	 */
   List<Suggestion> h = new ArrayList<Suggestion>();
+  
+  /**
+   * Taille du min tas
+   */
   int taille = 5;
 
+  /**
+   * Constructeur
+   */
   public MinHeap() {
   }
 
+  /**
+   * Constructeur 
+   * @param keys
+   */
   public MinHeap(Suggestion[] keys) {
     for (Suggestion key : keys) {
       h.add(key);
     }
     for (int k = h.size() / 2 - 1; k >= 0; k--) {
-      percolateDown(k, h.get(k));
+      faireDescendre(k, h.get(k));
     }
   }
 
+  /**
+   * Insertion d'un noeud en comparant avec le minimum. Le minimum est à la racine, en premier (position 0)
+   * @param node
+   */
   public void add(Suggestion node) {
 	if (h.size() == taille) {
 		if (min().compareTo(node) < 0)
@@ -46,6 +70,11 @@ public class MinHeap {
     h.set(k, node);
   }
   
+  /**
+   * Renvoie la Suggestion associée au mot cherché
+   * @param mot
+   * @return Suggestion depuis le tas associée au mot
+   */
   public Suggestion get(String mot) {
 	  for (Suggestion entry : h) {
 	      if (entry.getMot().equals(mot))
@@ -54,22 +83,39 @@ public class MinHeap {
 	  return null;
   }
 
+  /**
+   * Remove le noeud min
+   * @return noeud enlevé
+   */
   public Suggestion remove() {
 	  Suggestion removedNode = h.get(0);
 	  Suggestion lastNode = h.remove(h.size() - 1);
-    percolateDown(0, lastNode);
+    faireDescendre(0, lastNode);
     return removedNode;
   }
 
+  /**
+   * Renvoie la suggestion avec proba minimale
+   * @return
+   */
   public Suggestion min() {
     return h.get(0);
   }
 
+  /**
+   * Test de non vacuité du tas
+   * @return booléen de vacuité
+   */
   public boolean isEmpty() {
     return h.isEmpty();
   }
 
-  void percolateDown(int k, Suggestion node) {
+  /**
+   * Compare un noeud avec ceux d'en-dessous pour le faire descendre s'il est plus grand
+   * @param k
+   * @param node
+   */
+  void faireDescendre(int k, Suggestion node) {
     if (h.isEmpty()) {
       return;
     }
@@ -87,7 +133,10 @@ public class MinHeap {
     h.set(k, node);
   }
 
-  // Usage example
+  /**
+   * Test
+   * @param args
+   */
   public static void main(String[] args) {
     MinHeap heap = new MinHeap();
     Suggestion entry;
@@ -99,7 +148,6 @@ public class MinHeap {
     
     System.out.println("-----------------");
     
-    // print keys in sorted order
     while (!heap.isEmpty()) {
     	entry = heap.remove();
     	System.out.println(entry.getMot() + " : " + entry.getProbabilite());
