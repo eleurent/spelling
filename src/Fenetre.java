@@ -1,46 +1,58 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
 
 public class Fenetre extends JFrame implements KeyListener, MouseListener{
 	JPanel panneauPhrases;
+	JPanel panneauOptions;
 	JTextField input;
 	JLabel nomLangagePredit;
 	JTextField output;
 	Langage langagePredit;
 	Updater updater;
-	JComboBox<String> choixCorrection;
+	Vector<String> choixModele;
+	JList<String> choixCorrection;
 	
 	public Fenetre() {
 		panneauPhrases = new JPanel();
-		panneauPhrases.setLayout(new BorderLayout());
-		input = new JTextField("Life is a tale told by an idiot, full of sound and fury, signifying nothing");
+		panneauOptions = new JPanel();
+		panneauOptions.setLayout(new BorderLayout());
+		panneauPhrases.setLayout(new GridLayout(2,1));
+		input = new JTextField("Lifde isq a talez tomld by an idiot, ful of sund an furyt, signifin noting");
 		input.addKeyListener(this);
 		input.addMouseListener(this);
 		output = new JTextField();
 		output.setEditable(false);
 		nomLangagePredit = new JLabel("???");
-		choixCorrection = new JComboBox<String>();
-		panneauPhrases.add(input, BorderLayout.NORTH);
-		panneauPhrases.add(nomLangagePredit, BorderLayout.EAST);
-		panneauPhrases.add(choixCorrection, BorderLayout.WEST);
-		panneauPhrases.add(output, BorderLayout.CENTER);
-		add(panneauPhrases);
+		choixModele = new Vector<String>();
+		choixCorrection = new JList<String>(choixModele);
+		setLayout(new BorderLayout());
+		panneauPhrases.add(input);
+		panneauPhrases.add(output);
+		panneauOptions.add(choixCorrection, BorderLayout.CENTER);
+		panneauOptions.add(nomLangagePredit, BorderLayout.SOUTH);
+		add(panneauPhrases, BorderLayout.CENTER);
+		add(panneauOptions, BorderLayout.EAST);		
 		corrigerPhrase();
 		updater = new Updater(this);
 		updater.start();
-		setSize(new Dimension(600,100));
+		setSize(new Dimension(700,170));
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 	}
@@ -57,12 +69,12 @@ public class Fenetre extends JFrame implements KeyListener, MouseListener{
 		String[] avant = input.getText().substring(0,indice).split("[^\\p{L}]+");		
 		String mot =  avant[avant.length-1] + input.getText().substring(indice).split("[^\\p{L}]+")[0];
 		List<Suggestion> suggestions = langagePredit.suggestions(mot);		
-		choixCorrection.removeAllItems();
+		choixModele.clear();
 		for(Suggestion suggestion:suggestions) {
-			choixCorrection.addItem(suggestion.getMot() + " (" + suggestion.getProbabilite() + ")");
+			choixModele.add(suggestion.getMot() + " (" + suggestion.getProbabilite() + ")");
 		}
+		choixCorrection.setListData(choixModele);
 	}
-
 	
 	public static void main(String[] args) {
 		Fenetre fenetre = new Fenetre();
@@ -92,9 +104,7 @@ public class Fenetre extends JFrame implements KeyListener, MouseListener{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		updater.MAJRequise = true;
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
@@ -103,7 +113,9 @@ public class Fenetre extends JFrame implements KeyListener, MouseListener{
 	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {
+		updater.MAJRequise = true;
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}

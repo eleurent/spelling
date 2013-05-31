@@ -92,7 +92,9 @@ public class Langage {
 		for (String edit2:modifications2Connues(mot)) {
 			heap.add(new Suggestion(edit2, modele.get(edit2)/Math.pow(probabiliteTypo,3)));
 		}		
-		Collections.sort(heap.h, Collections.reverseOrder());		
+		Collections.sort(heap.h, Collections.reverseOrder());
+		if (heap.isEmpty())
+			heap.add(new Suggestion(mot, 0.));
 		return heap.h;
 	}
 	
@@ -156,7 +158,8 @@ public class Langage {
 	}
 	
 	public static Langage francais = new Langage("Français", "abcdefghijklmnopqrstuvwxyzàáâèéêîïôçû", 
-			  new String[]{"corpus/fr/miserables1.txt", 
+			  new String[]{"corpus/fr/dictionnaire.txt",
+						   "corpus/fr/miserables1.txt", 
 						   "corpus/fr/miserables2.txt", 
 						   "corpus/fr/miserables3.txt", 
 						   "corpus/fr/miserables4.txt",

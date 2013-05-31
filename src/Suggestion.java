@@ -30,5 +30,4 @@ class Suggestion implements Comparable {
 			return 0;
 	}
     
-    
 }
