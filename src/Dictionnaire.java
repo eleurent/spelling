@@ -1,33 +1,31 @@
-import java.util.HashMap;
+ï»¿import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Table de hashage avec une valeur par défaut
- * @author user
+ * Table de hashage avec une valeur par dÃ©faut
  *
  */
 public class Dictionnaire extends HashMap<String,Integer> {
   
 	/**
-	 * Valeur par défaut
+	 * Valeur par dÃ©faut
 	 */
-	protected Integer defaultValue;
+	protected Integer valeurParDefaut;
 	
 	/**
 	 * Constructeur
 	 * @param defaultValue
 	 */
   public Dictionnaire(Integer defaultValue) {
-    this.defaultValue = defaultValue;
+    this.valeurParDefaut = defaultValue;
   }
   
   /**
-   * Obtenir la valeur d'une clé
+   * Obtenir la valeur d'une clÃ©
    */
   @Override
   public Integer get(Object k) {
     Integer v = super.get(k);
-    return ((v == null) && !this.containsKey(k)) ? this.defaultValue : v;
-  }
-  
+    return ((v == null) && !this.containsKey(k)) ? this.valeurParDefaut : v;
+  } 
 }

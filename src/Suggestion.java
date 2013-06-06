@@ -1,7 +1,5 @@
-
 /**
  * Mots suggérés pour correction avec leur probabilité
- * @author user
  *
  */
 class Suggestion implements Comparable {
@@ -55,10 +53,10 @@ class Suggestion implements Comparable {
      */
 	@Override
 	public int compareTo(Object o) {
-		double oProba = ((Suggestion)o).probabilite;
-		if (probabilite > oProba)
+		double autre = ((Suggestion)o).probabilite;
+		if (probabilite > autre)
 			return 1;
-		else if (probabilite < oProba)
+		else if (probabilite < autre)
 			return -1;
 		else 
 			return 0;

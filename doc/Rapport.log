@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.4.24)  31 MAY 2013 12:29
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.4.24)  6 JUN 2013 19:13
 entering extended mode
 **Rapport.tex
 (C:\Users\Edouard\java\workspace\Spelling\doc\Rapport.tex
@@ -622,7 +622,7 @@ Package pdftex.def Info: logo_mines.png used on input line 37.
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Edouard/java/wor
 kspace/Spelling/doc/logo_mines.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 66--67
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
 
  []
 
@@ -637,66 +637,212 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--71
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--77
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
+Underfull \hbox (badness 10000) in paragraph at lines 74--79
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
 
  []
 
-[3] (C:\Users\Edouard\java\workspace\Spelling\doc\Rapport.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 186.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+(C:\Users\Edouard\java\workspace\Spelling\doc\Dictionnaire.java
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 4.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 4.
+ [4]) [5]
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 347--348
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--354
+
+ []
+
+[7] [8] (C:\Users\Edouard\java\workspace\Spelling\doc\Suggestion.java [9])
+Underfull \hbox (badness 10000) in paragraph at lines 486--489
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 490--491
+
+ []
+
+(C:\Users\Edouard\java\workspace\Spelling\doc\MinHeap.java [11] [12]) [13]
+<IHM.png, id=65, 514.17094pt x 170.13562pt>
+File: IHM.png Graphic file (type png)
+ <use IHM.png>
+Package pdftex.def Info: IHM.png used on input line 575.
+(pdftex.def)             Requested size: 514.1697pt x 170.1352pt.
+
+Overfull \hbox (30.47282pt too wide) in paragraph at lines 575--576
+ [][] 
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 580--581
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 585--586
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 588--589
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
+
+ []
+
+(C:\Users\Edouard\java\workspace\Spelling\doc\Fenetre.java [15 <C:/Users/Edouar
+d/java/workspace/Spelling/doc/IHM.png>] [16] [17])
+<IHM_raw.png, id=80, 371.13657pt x 100.12407pt>
+File: IHM_raw.png Graphic file (type png)
+ <use IHM_raw.png>
+Package pdftex.def Info: IHM_raw.png used on input line 602.
+(pdftex.def)             Requested size: 371.13565pt x 100.12381pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 621--622
+
+ []
+
+[18 <C:/Users/Edouard/java/workspace/Spelling/doc/IHM_raw.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 637--638
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 648--649
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 659--660
+
+ []
+
+<toujours.png, id=85, 335.00156pt x 111.41624pt>
+File: toujours.png Graphic file (type png)
+ <use toujours.png>
+Package pdftex.def Info: toujours.png used on input line 666.
+(pdftex.def)             Requested size: 335.00073pt x 111.41597pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
+
+ []
+
+[19 <C:/Users/Edouard/java/workspace/Spelling/doc/toujours.png>] [20]
+Underfull \hbox (badness 10000) in paragraph at lines 777--778
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 816--817
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 818--819
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 820--821
+
+ []
+
+[22] (C:\Users\Edouard\java\workspace\Spelling\doc\Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5803 strings out of 494045
- 75684 string characters out of 3145963
- 172881 words of memory out of 3000000
- 8979 multiletter control sequences out of 15000+200000
- 18375 words of font info for 52 fonts, out of 3000000 for 9000
+ 6391 strings out of 494045
+ 82511 string characters out of 3145963
+ 352879 words of memory out of 3000000
+ 9543 multiletter control sequences out of 15000+200000
+ 19361 words of font info for 54 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,7n,40p,487b,280s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Edou
-ard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0700.pk> <C
-:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ect
-i1000.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\e
-c\dpi600\ecbx1200.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfou
-r\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fo
-nts\pk\ljfour\jknappen\ec\dpi600\ecbx1000.pk> <C:\Users\Edouard\AppData\Local\M
-iKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Edouard\App
-Data\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1440.pk> <C:\Users
-\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.p
-k> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi60
-0\ecrm1200.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknap
-pen\ec\dpi600\ecrm1728.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmi7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-msy7.pfb>
-Output written on Rapport.pdf (3 pages, 167586 bytes).
+ 29i,7n,40p,690b,1635s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Edo
+uard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1000.pk> <
+C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ec
+rm0500.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
+ec\dpi600\ectt1000.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfo
+ur\jknappen\ec\dpi600\ecrm0700.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\f
+onts\pk\ljfour\jknappen\ec\dpi600\ecti1000.pk> <C:\Users\Edouard\AppData\Local\
+MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Edouard\Ap
+pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\User
+s\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1000.
+pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
+00\ecbx1440.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkna
+ppen\ec\dpi600\ecrm1440.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\2.9\fonts\pk
+\ljfour\jknappen\ec\dpi600\eccc1200.pk> <C:\Users\Edouard\AppData\Local\MiKTeX\
+2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\Edouard\AppData\L
+ocal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1728.pk><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on Rapport.pdf (22 pages, 371805 bytes).
 PDF statistics:
- 307 PDF objects out of 1000 (max. 8388607)
+ 548 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

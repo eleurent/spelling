@@ -2,7 +2,6 @@ import java.util.*;
 
 /**
  * Tas minimal de suggestions maximales
- * @author user
  *
  */
 public class MinHeap {
@@ -13,7 +12,7 @@ public class MinHeap {
   List<Suggestion> h = new ArrayList<Suggestion>();
   
   /**
-   * Taille du min tas
+   * Taille du tas minimal
    */
   int taille = 5;
 
@@ -24,12 +23,11 @@ public class MinHeap {
   }
 
   /**
-   * Constructeur 
-   * @param keys
+   * Constructeur avec une liste de suggestions
    */
-  public MinHeap(Suggestion[] keys) {
-    for (Suggestion key : keys) {
-      h.add(key);
+  public MinHeap(Suggestion[] suggestions) {
+    for (Suggestion suggestion : suggestions) {
+      h.add(suggestion);
     }
     for (int k = h.size() / 2 - 1; k >= 0; k--) {
       faireDescendre(k, h.get(k));
@@ -38,36 +36,35 @@ public class MinHeap {
 
   /**
    * Insertion d'un noeud en comparant avec le minimum. Le minimum est à la racine, en premier (position 0)
-   * @param node
+   * @param noeud
    */
-  public void add(Suggestion node) {
+  public void add(Suggestion noeud) {
 	if (h.size() == taille) {
-		if (min().compareTo(node) < 0)
+		if (min().compareTo(noeud) < 0)
 			remove();
 		else
 			return;
 	}
 	
-	Suggestion p = get(node.getMot());
+	Suggestion p = get(noeud.getMot());
 	if (p != null) {
-		if (p.compareTo(node) < 0)
-			p.setProbabilite(node.getProbabilite());
+		if (p.compareTo(noeud) < 0)
+			p.setProbabilite(noeud.getProbabilite());
 		return;
 	}
 		
-	
     h.add(null);
     int k = h.size() - 1;
     while (k > 0) {
       int parent = (k - 1) / 2;
       p = h.get(parent);
-      if (node.getProbabilite() >= p.getProbabilite()) {
+      if (noeud.getProbabilite() >= p.getProbabilite()) {
         break;
       }
       h.set(k, p);
       k = parent;
     }
-    h.set(k, node);
+    h.set(k, noeud);
   }
   
   /**
@@ -76,9 +73,9 @@ public class MinHeap {
    * @return Suggestion depuis le tas associée au mot
    */
   public Suggestion get(String mot) {
-	  for (Suggestion entry : h) {
-	      if (entry.getMot().equals(mot))
-	    	  return entry;
+	  for (Suggestion noeud : h) {
+	      if (noeud.getMot().equals(mot))
+	    	  return noeud;
 	  }
 	  return null;
   }
@@ -120,37 +117,37 @@ public class MinHeap {
       return;
     }
     while (k < h.size() / 2) {
-      int child = 2 * k + 1;
-      if (child < h.size() - 1 && h.get(child).compareTo(h.get(child + 1))  > 0) {
-        child++;
+      int fils = 2 * k + 1;
+      if (fils < h.size() - 1 && h.get(fils).compareTo(h.get(fils + 1))  > 0) {
+        fils++;
       }
-      if (node.compareTo(h.get(child)) <= 0) {
+      if (node.compareTo(h.get(fils)) <= 0) {
         break;
       }
-      h.set(k, h.get(child));
-      k = child;
+      h.set(k, h.get(fils));
+      k = fils;
     }
     h.set(k, node);
   }
 
   /**
-   * Test
+   * Test unitaire
    * @param args
    */
   public static void main(String[] args) {
     MinHeap heap = new MinHeap();
-    Suggestion entry;
+    Suggestion noeud;
     for (int i=0; i<10; i++) {
-    	entry = new Suggestion("entry"+(int)(10*Math.random()), Math.random());
-    	System.out.println(entry.getMot() + " : " + entry.getProbabilite());
-    	heap.add(entry);
+    	noeud = new Suggestion("noeud"+(int)(10*Math.random()), Math.random());
+    	System.out.println(noeud.getMot() + " : " + noeud.getProbabilite());
+    	heap.add(noeud);
     }
     
     System.out.println("-----------------");
     
     while (!heap.isEmpty()) {
-    	entry = heap.remove();
-    	System.out.println(entry.getMot() + " : " + entry.getProbabilite());
+    	noeud = heap.remove();
+    	System.out.println(noeud.getMot() + " : " + noeud.getProbabilite());
     }
   }
 }
