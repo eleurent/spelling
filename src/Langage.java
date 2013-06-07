@@ -324,15 +324,20 @@ public class Langage {
      * @param args
      */
     public static void main(String[] args) {
-        //francais.evaluer("Les sanglots longs des violons de l'automne blessent mon coeur d'une langueur monotone. Tout suffocant et blême quand sonne l'heure je me souviens des jours anciens et je pleure. Et je m'en vais au vent mauvais qui m'emporte deça delà, pareil à la feuille morte");
         /*francais.evaluer(lireFichier("corpus/fr/largent.txt"), 1000,0);
         francais.evaluer(lireFichier("corpus/fr/notredamedeparis.txt"), 1000,0);
         francais.evaluer(lireFichier("corpus/fr/largent.txt"), 1000,100);
         francais.evaluer(lireFichier("corpus/fr/notredamedeparis.txt"), 1000,100);*/
         
-        anglais.evaluer(lireFichier("corpus/en/frankenstein.txt"), 1000,0);
+        /*anglais.evaluer(lireFichier("corpus/en/frankenstein.txt"), 1000,0);
         anglais.evaluer(lireFichier("corpus/en/thepictureofdoriangray.txt"), 1000,0);
         anglais.evaluer(lireFichier("corpus/en/frankenstein.txt"), 1000,100);
-        anglais.evaluer(lireFichier("corpus/en/thepictureofdoriangray.txt"), 1000,100);
+        anglais.evaluer(lireFichier("corpus/en/thepictureofdoriangray.txt"), 1000,100);*/
+    	
+    	String phrase = "Paivres zombikz le mondeu des morts nous connumes avek ses ames san habis au sombrs couleu postumes";
+    	Langage l = predireLangage(phrase, new Langage[]{francais, anglais});
+    	System.out.println("Langage détecté : " + l.nom);
+    	System.out.println(francais.modele.get("prostituée"));
+    	//System.out.println("Correction : " + l.corrigerPhrase(phrase));
     }
 }

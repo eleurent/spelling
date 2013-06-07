@@ -59,7 +59,7 @@ Nous allons ici préciser nos problèmes, et expliquer notre choix d'algorithmes
 Nous allons voir que le problème de correction orthographique peut se ramener à un problème de Machine Learning.\\
 \begin{itemize}
 \item On considère un mot tapé par l'utilisateur comme une \textbf{observation} du mot réel qu'il a voulu écrire. Les mots d'une langue sont alors interprétées comme des \textbf{classes}. Corriger une faute d'orthographe revient donc à trouver à quelle classe appartient une observation donnée. Nous avons un \textbf{premier problème de classification}, très fortement multiclasse (par exemple, la langue française contient environ 100 000 mots).
-\item Pour rester général, nous avons décider de ne pas considérer uniquement le français mais de traiter le cas d'un \textbf{langage quelconque}. Une fois plusieurs langages appris, corriger une phrase donnée nécessite de savoir dans quel langage il faut raisonner. On doit donc être capable d'identifier dans quelle langue est écrite une phrase donnée. La détection de la langue constitue alors notre \textbf{deuxième problème de classification}.
+\item Pour rester général, nous avons décider de ne pas considérer uniquement le français mais de traiter le cas d'un \textbf{langage quelconque}. Une fois plusieurs langages appris, corriger une phrase donnée nécessite de savoir dans quel langage il faut raisonner. On doit donc être capable d'identifier dans quelle langue est écrite une phrase. La détection de la langue constitue alors notre \textbf{deuxième problème de classification}.
 \end{itemize}
 
 Pour nos exemples, nous avons choisi d'utiliser le français et l'anglais.
@@ -101,7 +101,7 @@ On constate alors que notre fonction à maximiser est constituée de deux termes
 Cette séparation en deux termes est très intuitive. Comment corriger la faute de frappe \textit{histre} par exemple ? On peut proposer les deux corrections \textit{bistre} et \textit{histoire} par exemple. Laquelle est la meilleure ?\\
 
 \begin{itemize}
-\item D'un coté la mot \textit{bistre} est plus proche de \textit{histre} que la mot \textit{histoire}, car une seule modification est nécessaire contre deux pour \textit{histoire}. Il est plus probable que l'utilisateur ait faite une seule faute plutôt que deux fautes dans un même mot.
+\item D'un coté le mot \textit{bistre} est plus proche de \textit{histre} que le mot \textit{histoire}, car une seule modification est nécessaire contre deux pour \textit{histoire}. Il est plus probable que l'utilisateur ait faite une seule faute plutôt que deux fautes dans un même mot.
 \item D'un autre coté, le mot \textit{histoire} est bien plus courant que le mot \textit{bistre}, et il est donc plus probable que l'utilisateur ait voulu écrire ce mot.\\
 \end{itemize}
 
