@@ -48,7 +48,7 @@ French | English
 Émile Zola, *Germinal* | William Shakespeare, *MacBeth*
 Victor Hugo, *Les Misérables* | Lewis Caroll, *Alice in Wonderland*
 Marcel Proust, *Du côté de chez Swann* | Sir Arthur Conan Doyle, *Sherlock Holmes*
-Stendhal, *Le rouge est le noir* | Herman Melville, *Moby Dick ; or The Whale*
+Stendhal, *Le rouge et le noir* | Herman Melville, *Moby Dick ; or The Whale*
 Alexandre Dumas, *Les trois mousquetaires* | Mary Shelley, *Frankenstein or The Modern Prometheus*
 Gustave Flaubert, *Madame Bovary* | Charles Dickens, *Great Expectations*
 
