@@ -8,7 +8,7 @@ A Machine-Learning project for detection of langage and spelling correction.
 # How it works
 
 A misspelled word can be considered as the observation of the real word that was meant to be written. Thus, correcting a spelling mistake is a **classification problem** of finding the correct class among all the existing words of a language.
-In this project, a **Naive Bayse Classifier** has been implemented.
+In this project, a **Naive Bayes Classifier** has been implemented.
 
 Here's how it works: if,
 - ``m`` is the word typed by the user
