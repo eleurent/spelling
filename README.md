@@ -13,7 +13,7 @@ In this project, a **Naive Bayes Classifier** has been implemented.
 Here's how it works: if,
 - ``m`` is the word typed by the user
 - ``c`` is a possible correction of this word
-- ``P(c|m)`` is the probability that the user typed ``m`` while meaning to type the correct word ``c``
+- ``P(c|m)`` is the probability that a user who typed ``m`` actually meant to type a correct word ``c`` instead
 
 The Bayes Formula states that:
 ``
@@ -33,7 +33,7 @@ The language model ``P(c)`` is the **frequency** of the word c in the corpus.
 
 Finally, for any given typed word ``m``, we generate a lot of potential correction canditates by generating errors of editing distance <= 2. Then, for each of this candidate words we compute the probability P(c|m) that they are the right correction, and we select the candidate with the highest probability.
 
-![IHM](https://github.com/eleurent/spelling/raw/master/doc/toujours.PNG)
+![HMI](https://github.com/eleurent/spelling/raw/master/doc/toujours.PNG)
 
 The same approach can be used to determine the language of the sentence.
 
